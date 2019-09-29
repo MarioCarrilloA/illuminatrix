@@ -1,4 +1,5 @@
 #include "boot.h"
+#include "print_icon.h"
 
 .code16
 .globl start
@@ -21,16 +22,8 @@ init_dl: .byte 0
 	lgdt gdtdesc
 
 	PRINT_STR $protecte_msg, $23
+	PRINT_ICON
 
-	//-------------------- PRINT A PIXEL ------------------------
-	mov $0x0013, %ax
-	int $0x10
-	mov $0x0C0C, %ax
-	mov $0x01, %bh
-	mov $0x0001, %cx
-	mov $0x0001, %dx
-	int $0x10
-	//------------------------------------------------------------
 	mov %cr0, %eax
 	or $0x1, %eax
 	mov %eax, %cr0
